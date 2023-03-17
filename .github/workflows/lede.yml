@@ -9,7 +9,7 @@ on:
 
 env:
   REGION: cn-hongkong
-  REGISTRY: registry.${{ env.REGION }}.aliyuncs.com
+  REGISTRY: registry.cn-hongkong.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
 
