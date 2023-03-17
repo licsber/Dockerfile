@@ -1,4 +1,4 @@
-name: LEDE Docker Image
+name: Openwrt Docker Image
 
 on:
   watch:
