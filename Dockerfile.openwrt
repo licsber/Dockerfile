@@ -23,7 +23,7 @@ RUN cd openwrt && \
     ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
-COPY openwrt-config/openwrt.x86.config lede/.config
+COPY openwrt-config/openwrt.x86.config openwrt/.config
 RUN cd openwrt && \
     make download -j8
 
