@@ -27,4 +27,4 @@ RUN cd lede && \
     make defconfig && \
     make download -j8
 
-CMD ['bash']
+CMD bash
