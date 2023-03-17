@@ -1,7 +1,11 @@
 # Dockerfile
 
-registry.cn-beijing.aliyuncs.com/licsber/github
-
-registry-vpc.cn-beijing.aliyuncs.com/licsber/github
-
-registry-internal.cn-beijing.aliyuncs.com/licsber/github
+```bash
+# registry-vpc.cn-beijing.aliyuncs.com
+# registry-internal.cn-beijing.aliyuncs.com
+REGISTRY=registry.cn-beijing.aliyuncs.com
+NAMESPACE=licsber
+REPO_NAME=github
+LABEL=lede
+sudo docker pull "$REGISTRY/$NAMESPACE/$REPO_NAME:$LABEL"
+```
