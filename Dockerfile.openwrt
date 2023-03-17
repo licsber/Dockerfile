@@ -1,6 +1,7 @@
 FROM ubuntu:jammy-20230308
 LABEL maintainer=admin@licsber.site
 
+ENV TERM=xterm
 ENV FORCE_UNSAFE_CONFIGURE=1
 
 # https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem
