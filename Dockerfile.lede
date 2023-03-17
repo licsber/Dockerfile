@@ -27,6 +27,7 @@ COPY openwrt-config/lede.x86.config lede/.config
 RUN cd lede && \
     make defconfig
 
-RUN make download -j8
+RUN cd lede && \
+    make download -j8
 
 CMD bash
