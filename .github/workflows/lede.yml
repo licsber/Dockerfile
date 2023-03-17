@@ -8,10 +8,12 @@ on:
     tags: [ 'v*.*.*' ]
 
 env:
-  REGION: cn-hongkong
-  REGISTRY: registry.cn-hongkong.aliyuncs.com
+  DOCKERFILE: Dockerfile.lede
+  REGION: cn-beijing
+  REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
+  TAG: lede-${{ github.sha }}
 
 jobs:
   build:
@@ -28,11 +30,13 @@ jobs:
         password: "${{ secrets.ACR_PASSWD }}"
         region-id: ${{ env.REGION }}
 
-    - name: Build Base Image
-      env:
-        TAG: lede-${{ github.sha }}
+    - name: Build Image
+      id: build
       run: |
-        IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}:${{ env.REPOSITORY }}
-        echo $IMAGE
-        docker build -t "$IMAGE" --file Dockerfile.lede .
-        docker push "$IMAGE"
+        IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}:${{ env.TAG }}
+        echo "$IMAGE" >> $GITHUB_OUTPUT
+        docker build -t "$IMAGE" --file ${{ env.DOCKERFILE }} .
+    
+    - name: Push Image
+      run: |
+        docker push ${{ steps.build.outputs.IMAGE }}
