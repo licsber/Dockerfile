@@ -1,6 +1,8 @@
 name: LEDE Docker Image
 
 on:
+  watch:
+    types: started
   push:
     branches: [ 'main' ]
   pull_request:
