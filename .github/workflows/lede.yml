@@ -34,9 +34,9 @@ jobs:
       id: build
       run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}:${{ env.TAG }}
-        echo "$IMAGE" >> $GITHUB_OUTPUT
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
         docker build -t "$IMAGE" --file ${{ env.DOCKERFILE }} .
     
     - name: Push Image
       run: |
-        docker push ${{ steps.build.outputs.IMAGE }}
+        docker push ${{ steps.build.outputs.image }}
