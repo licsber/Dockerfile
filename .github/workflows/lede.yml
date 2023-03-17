@@ -25,10 +25,10 @@ jobs:
     - name: Login to ACR V1
       uses: aliyun/acr-login@v1
       with:
-        login-server: https://${{ env.REGISTRY }}
+        login-server: "https://${{ env.REGISTRY }}"
         username: "${{ secrets.ACR_USERNAME }}"
         password: "${{ secrets.ACR_PASSWD }}"
-        region-id: ${{ env.REGION }}
+        region-id: "${{ env.REGION }}"
 
     - name: Build Image
       id: build
