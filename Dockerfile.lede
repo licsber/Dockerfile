@@ -1,4 +1,4 @@
-FROM registry.cn-beijing.aliyuncs.com/licsber/github:ubuntu2204-230317
+FROM ubuntu:jammy-20230308
 LABEL maintainer=admin@licsber.site
 
 ENV FORCE_UNSAFE_CONFIGURE=1
