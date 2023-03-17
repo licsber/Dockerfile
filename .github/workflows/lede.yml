@@ -30,5 +30,5 @@ jobs:
       run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}:${{ env.REPOSITORY }}
         echo $IMAGE
-        docker build -t "$IMAGE" .
+        docker build -t "$IMAGE" --file Dockerfile.lede .
         docker push "$IMAGE"
