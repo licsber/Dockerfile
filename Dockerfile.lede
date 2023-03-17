@@ -1,4 +1,4 @@
-FROM alibaba-cloud-linux-3-registry.cn-hangzhou.cr.aliyuncs.com/alinux3/alinux3:220901.1
+FROM registry.cn-beijing.aliyuncs.com/licsber/github:ubuntu2204-230317
 LABEL maintainer=admin@licsber.site
 
 ENV FORCE_UNSAFE_CONFIGURE=1
