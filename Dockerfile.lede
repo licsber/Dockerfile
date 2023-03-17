@@ -14,18 +14,14 @@ RUN echo $(nproc) && \
 
 WORKDIR /licsber
 
-RUN git clone --depth=1 https://github.com/openwrt/openwrt.git -b openwrt-22.03
 RUN git clone --depth=1 https://github.com/coolsnowwolf/lede.git
 RUN git clone --depth=1 https://github.com/fw876/helloworld.git && \
-    cp -r helloworld openwrt/package && \
     cp -r helloworld lede/package
-
-RUN cd openwrt && \
-    ./scripts/feeds update -a && \
-    ./scripts/feeds install -a
 
 RUN cd lede && \
     ./scripts/feeds update -a && \
     ./scripts/feeds install -a
+
+COPY openwrt-config/lede.x86.config lede/.config
 
 CMD ['bash']
