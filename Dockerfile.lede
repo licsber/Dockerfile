@@ -23,5 +23,7 @@ RUN cd lede && \
     ./scripts/feeds install -a
 
 COPY openwrt-config/lede.x86.config lede/.config
+RUN cd lede && \
+    make download -j8
 
 CMD ['bash']
