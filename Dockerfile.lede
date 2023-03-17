@@ -1,4 +1,7 @@
 FROM ubuntu:22.04
+LABEL maintainer=admin@licsber.site
+
+ENV FORCE_UNSAFE_CONFIGURE=1
 
 # https://openwrt.org/docs/guide-developer/toolchain/install-buildsystem
 RUN echo $(nproc) && sudo apt update && \
@@ -7,3 +10,11 @@ RUN echo $(nproc) && sudo apt update && \
                         zlib1g-dev file wget && \
     sudo apt clean && \
     sudo rm -rf /var/lib/apt/list/*
+
+WORKDIR /licsber
+
+RUN git clone --depth=1 https://github.com/openwrt/openwrt.git -b openwrt-22.03 && \
+    git clone --depth=1 https://github.com/coolsnowwolf/lede.git && \
+    git clone --depth=1 https://github.com/fw876/helloworld.git
+
+CMD ['/usr/bin/env', 'bash']
