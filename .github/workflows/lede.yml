@@ -1,12 +1,15 @@
 name: LEDE Docker Image
 
 on:
+  watch:
+    types: started
   push:
     branches: [ 'main' ]
     tags: [ 'v*.*.*' ]
 
 env:
-  REGISTRY: registry.cn-beijing.aliyuncs.com
+  REGION: cn-hongkong
+  REGISTRY: registry.${{ env.REGION }}.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
 
@@ -23,10 +26,11 @@ jobs:
         login-server: https://${{ env.REGISTRY }}
         username: "${{ secrets.ACR_USERNAME }}"
         password: "${{ secrets.ACR_PASSWD }}"
+        region-id: ${{ env.REGION }}
 
     - name: Build Base Image
       env:
-        TAG: ${{ github.sha }}
+        TAG: lede-${{ github.sha }}
       run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}:${{ env.REPOSITORY }}
         echo $IMAGE
