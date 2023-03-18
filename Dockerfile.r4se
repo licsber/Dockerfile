@@ -21,6 +21,7 @@ RUN echo $(nproc) && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /usr/local/share/boost /opt/ghc
 
+RUN useradd -s /bin/bash licsber
 USER licsber
 WORKDIR /licsber
 
