@@ -49,7 +49,7 @@ RUN git clone --depth=1 https://github.com/licsber/RockchipScripts.git && \
     DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
 
 RUN cd friendlywrt && \
-    make download -j8 && \
+    make download -j8 || make -j1 V=s && \
     find dl -size -1024c -exec ls -l {} \; && \
     find dl -size -1024c -exec rm -f {} \;
 
