@@ -23,7 +23,7 @@ RUN echo $(nproc) && \
 
 RUN useradd -s /bin/bash licsber
 USER licsber
-WORKDIR /licsber
+WORKDIR /home/licsber
 
 RUN repo init --depth=1 -u https://github.com/friendlyarm/friendlywrt_manifests -b master-v22.03 \
                 -m rk3399.xml --repo-url=https://github.com/friendlyarm/repo  --no-clone-bundle && \
