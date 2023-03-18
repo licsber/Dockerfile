@@ -19,7 +19,7 @@ RUN echo $(nproc) && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /usr/local/share/boost /opt/ghc
 
-RUN adduser -s /bin/bash licsber && \
+RUN adduser --shell /bin/bash licsber && \
     usermod -aG sudo licsber && \
     echo 'licsber ALL=(ALL) NOPASSWD:ALL' | tee /etc/sudoers.d/licsber
 
