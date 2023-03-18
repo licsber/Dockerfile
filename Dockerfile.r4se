@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20230308
+FROM ubuntu:jammy-20230308 AS build
 LABEL maintainer=admin@licsber.site
 
 # https://github.com/friendlyarm/Actions-FriendlyWrt/blob/master/.github/workflows/build.yml
@@ -53,4 +53,8 @@ RUN cd friendlywrt && \
     make download -j8 || make -j1 V=s && \
     find dl -size -1024c -exec ls -l {} \; && \
     find dl -size -1024c -exec rm -f {} \;
+
+RUN cd friendlywrt && \
+    make -j4 || make -j1 V=s && \
+    echo $?
 
