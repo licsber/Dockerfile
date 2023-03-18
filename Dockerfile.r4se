@@ -1,0 +1,26 @@
+FROM ubuntu:bionic-20230308
+LABEL maintainer=admin@licsber.site
+
+# https://github.com/friendlyarm/Actions-FriendlyWrt/blob/master/.github/workflows/build.yml
+RUN echo $(nproc) && \
+    apt update > /dev/null && \
+    apt install -y -qq wget git > /dev/null && \
+    wget https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh && \
+    sed -i -e 's/^apt-get -y install openjdk-8-jdk/# apt-get -y install openjdk-8-jdk/g' install.sh && \
+    sed -i -e 's/^\[ -d fa-toolchain \]/# [ -d fa-toolchain ]/g' install.sh && \
+    sed -i -e 's/^cat fa-toolchain/# cat fa-toolchain/g' install.sh && \
+    sed -i -e 's/^tar xf fa-toolchain/# tar xf fa-toolchain/g' install.sh && \
+    bash install.sh && \
+    update-alternatives --install $(which python) python /usr/bin/python2.7 20 && \
+    git config --global user.name 'licsber' && \
+    git config --global user.email 'bot@licsber.site' && \
+    git clone https://github.com/friendlyarm/repo && \
+    cp repo/repo /usr/bin/ && \
+    mkdir -p ./artifact && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /usr/local/share/boost /opt/ghc
+
+USER licsber
+WORKDIR /licsber
+
