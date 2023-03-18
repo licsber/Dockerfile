@@ -12,8 +12,6 @@ RUN echo $(nproc) && \
     sed -i -e 's/^tar xf fa-toolchain/# tar xf fa-toolchain/g' install.sh && \
     bash install.sh && \
     update-alternatives --install $(which python) python /usr/bin/python2.7 20 && \
-    git config --global user.name 'licsber' && \
-    git config --global user.email 'bot@licsber.site' && \
     git clone https://github.com/friendlyarm/repo && \
     cp repo/repo /usr/bin/ && \
     mkdir -p ./artifact && \
@@ -46,6 +44,8 @@ RUN git clone --depth=1 https://github.com/licsber/RockchipScripts.git && \
     echo '. device/friendlyelec/rk3399/base.mk' >> .current_config.mk && \
     echo "TARGET_IMAGE_DIRNAME=${DIRNAME}" >> .current_config.mk && \
     echo "TARGET_FRIENDLYWRT_CONFIG=${CONFIG}" >> .current_config.mk && \
+    git config --global user.name 'licsber' && \
+    git config --global user.email 'bot@licsber.site' && \ 
     DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
 
 RUN cd friendlywrt && \
