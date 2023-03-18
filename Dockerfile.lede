@@ -30,4 +30,8 @@ RUN cd lede && \
 RUN cd lede && \
     make download -j8
 
+RUN cd lede && \
+    make -j4 || make -j1 V=s && \
+    echo $?
+
 CMD bash
