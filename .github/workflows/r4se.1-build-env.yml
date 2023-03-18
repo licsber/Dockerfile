@@ -1,4 +1,4 @@
-name: R4se Docker Image
+name: R4se Build ENV Docker Image
 
 on:
   watch:
@@ -8,13 +8,13 @@ on:
     tags: [ 'v*.*.*' ]
 
 env:
-  DOCKERFILE: Dockerfile.r4se
+  DOCKERFILE: Dockerfile.r4se.1-build-env
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: r4se
-  TAG_FULL: r4s-${{ github.sha }}
+  TAG: r4se.1-build-env
+  TAG_FULL: r4se.1-build-env-${{ github.sha }}
 
 jobs:
   build:
@@ -36,10 +36,11 @@ jobs:
       run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
-        docker build -t "$IMAGE:${{ env.TAG_FULL }}" --file ${{ env.DOCKERFILE }} .
+        docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
     
     - name: Push Image
       run: |
-        docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
-        docker tag "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}" "${{ steps.build.outputs.image }}:${{ env.TAG }}"
         docker push "${{ steps.build.outputs.image }}:${{ env.TAG }}"
+        docker tag "${{ steps.build.outputs.image }}:${{ env.TAG }}" "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        
