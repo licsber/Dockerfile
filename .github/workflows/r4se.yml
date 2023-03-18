@@ -1,4 +1,4 @@
-name: Openwrt R4s Docker Image
+name: R4se Docker Image
 
 on:
   watch:
