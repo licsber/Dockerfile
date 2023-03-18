@@ -6,5 +6,7 @@ NAMESPACE=licsber
 REPOSITORY=github
 TAG=r4se.manual
 
-sudo docker build -t "$REGISTRY/$NAMESPACE/$REPOSITORY:$TAG" --file "$DOCKERFILE" .
+IMAGE="$REGISTRY/$NAMESPACE/$REPOSITORY:$TAG"
+sudo docker build -t "$IMAGE" --file "$DOCKERFILE" .
+sudo docker push "$IMAGE"
 
