@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # {{ Add luci-app-diskman
 (cd friendlywrt && {
@@ -20,7 +20,7 @@ EOL
     [ -d luci-theme-argon ] && rm -rf luci-theme-argon
     git clone https://github.com/jerrykuku/luci-theme-argon.git --depth 1 -b master
 })
-echo "CONFIG_PACKAGE_luci-theme-argon=y" >> configs/rockchip/01-nanopi
+echo 'CONFIG_PACKAGE_luci-theme-argon=y' >> configs/rockchip/01-nanopi
 sed -i -e 's/function init_theme/function old_init_theme/g' friendlywrt/target/linux/rockchip/armv8/base-files/root/setup.sh
 cat > /tmp/appendtext.txt <<EOL
 function init_theme() {
@@ -33,11 +33,20 @@ EOL
 sed -i -e '/boardname=/r /tmp/appendtext.txt' friendlywrt/target/linux/rockchip/armv8/base-files/root/setup.sh
 # }}
 
-# 以上为友善原带
+# https://github.com/friendlyarm/Actions-FriendlyWrt
 
 # {{ 探索世界
 (cd friendlywrt/package && {
     [ -d helloworld ] && rm -rf helloworld
     git clone https://github.com/fw876/helloworld.git --depth 1 -b master
 })
+echo 'CONFIG_PACKAGE_luci-app-ssr-plus=y' >> configs/rockchip/01-nanopi
+# }}
+
+# {{ licsber
+echo 'CONFIG_PACKAGE_luci-app-mwan3=y' >> configs/rockchip/01-nanopi
+echo 'CONFIG_PACKAGE_luci-app-openvpn=y' >> configs/rockchip/01-nanopi
+echo 'CONFIG_PACKAGE_luci-app-wireguard=y' >> configs/rockchip/01-nanopi
+echo 'CONFIG_PACKAGE_ddns-scripts-cloudflare=y' >> configs/rockchip/01-nanopi
+echo 'CONFIG_PACKAGE_docker-compose=y' >> configs/rockchip/01-nanopi
 # }}
