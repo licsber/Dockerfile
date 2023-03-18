@@ -1,5 +1,8 @@
-FROM ubuntu:jammy-20230308 AS build
+FROM ubuntu:jammy-20230308
 LABEL maintainer=admin@licsber.site
+
+ENV TARGET_IMAGE_DIRNAME=friendlywrt22.03-docker
+ENV TARGET_FRIENDLYWRT_CONFIG=rockchip-docker
 
 # https://github.com/friendlyarm/Actions-FriendlyWrt/blob/master/.github/workflows/build.yml
 RUN echo $(nproc) && \
@@ -12,11 +15,11 @@ RUN echo $(nproc) && \
     sed -i -e 's/^tar xf fa-toolchain/# tar xf fa-toolchain/g' install.sh && \
     bash install.sh && \
     update-alternatives --install $(which python) python /usr/bin/python2.7 20 && \
-    git clone https://github.com/friendlyarm/repo && \
+    git clone --depth=1 https://github.com/friendlyarm/repo && \
     cp repo/repo /usr/bin/ && \
+    rm -rf repo/ && \
     apt clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /usr/local/share/boost /opt/ghc
+    rm -rf /var/lib/apt/lists/*
 
 RUN adduser --shell /bin/bash licsber && \
     usermod -aG sudo licsber && \
@@ -35,14 +38,12 @@ RUN repo init --depth=1 -u https://github.com/friendlyarm/friendlywrt_manifests 
     repo sync -c scripts/sd-fuse  --no-clone-bundle && \
     repo sync -c toolchain  --no-clone-bundle
 
-RUN git clone --depth=1 https://github.com/licsber/RockchipScripts.git && \
-    bash RockchipScripts/scripts/add_packages.sh && \
-    bash RockchipScripts/scripts/custome_config.sh && \
-    export DIRNAME=friendlywrt22.03-docker && \
-    export CONFIG=rockchip-docker && \
+RUN git clone --depth=1 https://github.com/licsber/Dockerfile.git && \
+    bash Dockerfile/openwrt-scripts/r4se_add_packages.sh && \
+    bash Dockerfile/openwrt-scripts/r4se_custom_config.sh && \
     echo '. device/friendlyelec/rk3399/base.mk' >> .current_config.mk && \
-    echo "TARGET_IMAGE_DIRNAME=${DIRNAME}" >> .current_config.mk && \
-    echo "TARGET_FRIENDLYWRT_CONFIG=${CONFIG}" >> .current_config.mk && \
+    echo "TARGET_IMAGE_DIRNAME=$TARGET_IMAGE_DIRNAME" >> .current_config.mk && \
+    echo "TARGET_FRIENDLYWRT_CONFIG=$TARGET_FRIENDLYWRT_CONFIG" >> .current_config.mk && \
     git config --global user.name 'licsber' && \
     git config --global user.email 'bot@licsber.site' && \ 
     DEBUG_DOT_CONFIG=1 ./build.sh friendlywrt
@@ -53,8 +54,3 @@ RUN cd friendlywrt && \
     make download -j8 || make -j1 V=s && \
     find dl -size -1024c -exec ls -l {} \; && \
     find dl -size -1024c -exec rm -f {} \;
-
-RUN cd friendlywrt && \
-    make -j4 || make -j1 V=s && \
-    echo $?
-
