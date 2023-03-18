@@ -1,0 +1,46 @@
+name: R4se RootFS Docker Image
+
+on:
+  watch:
+    types: started
+  push:
+    branches: [ 'main' ]
+    tags: [ 'v*.*.*' ]
+
+env:
+  DOCKERFILE: Dockerfile.r4se.2-rootfs
+  REGION: cn-beijing
+  REGISTRY: registry.cn-beijing.aliyuncs.com
+  NAMESPACE: licsber
+  REPOSITORY: github
+  TAG: r4se.2-rootfs
+  TAG_FULL: r4se.2-rootfs-env-${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout V3 
+      uses: actions/checkout@v3
+
+    - name: Login to ACR V1
+      uses: aliyun/acr-login@v1
+      with:
+        login-server: "https://${{ env.REGISTRY }}"
+        username: "${{ secrets.ACR_USERNAME }}"
+        password: "${{ secrets.ACR_PASSWD }}"
+        region-id: "${{ env.REGION }}"
+
+    - name: Build Image
+      id: build
+      run: |
+        IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
+        docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
+    
+    - name: Push Image
+      run: |
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG }}"
+        docker tag "${{ steps.build.outputs.image }}:${{ env.TAG }}" "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        
