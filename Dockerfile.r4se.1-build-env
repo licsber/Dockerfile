@@ -7,7 +7,7 @@ ENV TARGET_FRIENDLYWRT_CONFIG=rockchip-docker
 # https://github.com/friendlyarm/Actions-FriendlyWrt/blob/master/.github/workflows/build.yml
 RUN echo $(nproc) && \
     apt update > /dev/null && \
-    apt install -y -qq wget git clang-12 llvm-12 > /dev/null && \
+    apt install -y -qq wget git clang-13 llvm-13 > /dev/null && \
     wget https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh && \
     sed -i -e 's/^apt-get -y install openjdk-8-jdk/# apt-get -y install openjdk-8-jdk/g' install.sh && \
     sed -i -e 's/^\[ -d fa-toolchain \]/# [ -d fa-toolchain ]/g' install.sh && \
@@ -50,7 +50,7 @@ RUN git clone --depth=1 https://github.com/licsber/Dockerfile.git && \
 
 RUN cd friendlywrt && \
     mkdir -p staging_dir/host/llvm-bpf/bin/ && \
-    ln -s /usr/bin/clang-12 staging_dir/host/llvm-bpf/bin/clang && \
+    ln -s /usr/bin/clang-13 staging_dir/host/llvm-bpf/bin/clang && \
     make download -j8 || make -j1 V=s && \
     find dl -size -1024c -exec ls -l {} \; && \
     find dl -size -1024c -exec rm -f {} \;
