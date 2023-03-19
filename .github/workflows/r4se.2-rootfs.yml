@@ -31,12 +31,16 @@ jobs:
         password: "${{ secrets.ACR_PASSWD }}"
         region-id: "${{ env.REGION }}"
 
-    - name: Build Image
-      id: build
+    - name: Clean Actions disk
       run: |
         df -h
         sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /usr/local/share/boost /opt/ghc
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         df -h
+
+    - name: Build Image
+      id: build
+      run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
