@@ -34,7 +34,9 @@ jobs:
     - name: Build Image
       id: build
       run: |
+        df -h
         sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk /usr/local/share/boost /opt/ghc
+        df -h
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
