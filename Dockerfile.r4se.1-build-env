@@ -7,7 +7,7 @@ ENV TARGET_FRIENDLYWRT_CONFIG=rockchip-docker
 # https://github.com/friendlyarm/Actions-FriendlyWrt/blob/master/.github/workflows/build.yml
 RUN echo $(nproc) && \
     apt update > /dev/null && \
-    apt install -y -qq wget git clang-13 llvm-13 > /dev/null && \
+    apt install -y -qq wget git clang-13 llvm-13 golang > /dev/null && \
     wget https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh && \
     sed -i -e 's/^apt-get -y install openjdk-8-jdk/# apt-get -y install openjdk-8-jdk/g' install.sh && \
     sed -i -e 's/^\[ -d fa-toolchain \]/# [ -d fa-toolchain ]/g' install.sh && \
