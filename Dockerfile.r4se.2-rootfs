@@ -9,6 +9,8 @@ RUN cd friendlywrt && \
     make -j$(($(nproc)+1)) || make -j1 V=s && \
     echo $?
 
+RUN pwd && export
+
 RUN source .current_config.mk && \
     tar cvzf rootfs.tgz ${FRIENDLYWRT_SRC}/${FRIENDLYWRT_ROOTFS} \
                         ${FRIENDLYWRT_SRC}/${FRIENDLYWRT_PACKAGE_DIR}

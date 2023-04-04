@@ -1,6 +1,7 @@
 name: R4se Build ENV Docker Image
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '46 */8 * * *'
 
