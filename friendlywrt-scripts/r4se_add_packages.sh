@@ -45,8 +45,12 @@ echo 'CONFIG_PACKAGE_luci-app-ssr-plus=y' >> configs/rockchip/01-nanopi
 
 # {{ licsber
 echo 'CONFIG_PACKAGE_luci-app-mwan3=y' >> configs/rockchip/01-nanopi
-echo 'CONFIG_PACKAGE_luci-app-openvpn=y' >> configs/rockchip/01-nanopi
+echo 'CONFIG_PACKAGE_luci-app-syncdial=y' >> configs/rockchip/01-nanopi
+
+echo 'CONFIG_PACKAGE_luci-app-openvpn-server=y' >> configs/rockchip/01-nanopi
 echo 'CONFIG_PACKAGE_luci-app-wireguard=y' >> configs/rockchip/01-nanopi
+
 echo 'CONFIG_PACKAGE_ddns-scripts-cloudflare=y' >> configs/rockchip/01-nanopi
+
 echo 'CONFIG_PACKAGE_docker-compose=y' >> configs/rockchip/01-nanopi
 # }}

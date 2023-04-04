@@ -1,7 +1,7 @@
-FROM ubuntu:jammy-20230308
+FROM ubuntu:22.04
 LABEL maintainer=admin@licsber.site
 
-ENV TARGET_IMAGE_DIRNAME=friendlywrt22.03-docker
+ENV TARGET_IMAGE_DIRNAME=friendlywrt22-docker
 ENV TARGET_FRIENDLYWRT_CONFIG=rockchip-docker
 
 # https://github.com/friendlyarm/Actions-FriendlyWrt/blob/master/.github/workflows/build.yml
@@ -39,8 +39,8 @@ RUN repo init --depth=1 -u https://github.com/friendlyarm/friendlywrt_manifests 
     repo sync -c toolchain  --no-clone-bundle
 
 RUN git clone --depth=1 https://github.com/licsber/Dockerfile.git && \
-    bash Dockerfile/openwrt-scripts/r4se_add_packages.sh && \
-    bash Dockerfile/openwrt-scripts/r4se_custom_config.sh && \
+    bash Dockerfile/friendlywrt-scripts/r4se_add_packages.sh && \
+    bash Dockerfile/friendlywrt-scripts/r4se_custom_config.sh && \
     echo '. device/friendlyelec/rk3399/base.mk' >> .current_config.mk && \
     echo "TARGET_IMAGE_DIRNAME=$TARGET_IMAGE_DIRNAME" >> .current_config.mk && \
     echo "TARGET_FRIENDLYWRT_CONFIG=$TARGET_FRIENDLYWRT_CONFIG" >> .current_config.mk && \

@@ -1,11 +1,8 @@
 name: R4se Build ENV Docker Image
 
 on:
-  watch:
-    types: started
-  push:
-    branches: [ 'main' ]
-    tags: [ 'v*.*.*' ]
+  schedule:
+    - cron: '46 */8 * * *'
 
 env:
   DOCKERFILE: Dockerfile.r4se.1-build-env
@@ -43,4 +40,3 @@ jobs:
         docker push "${{ steps.build.outputs.image }}:${{ env.TAG }}"
         docker tag "${{ steps.build.outputs.image }}:${{ env.TAG }}" "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
         docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
-        
