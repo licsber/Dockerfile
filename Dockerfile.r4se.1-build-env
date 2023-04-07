@@ -51,6 +51,6 @@ RUN git clone --depth=1 https://github.com/licsber/Dockerfile.git && \
 RUN cd friendlywrt && \
     mkdir -p staging_dir/host/llvm-bpf/bin/ && \
     ln -s /usr/bin/clang-13 staging_dir/host/llvm-bpf/bin/clang && \
-    make download -j8 || make download -j1 V=s && \
+    make download -j1 V=s && \
     find dl -size -1024c -exec ls -l {} \; && \
     find dl -size -1024c -exec rm -f {} \;
