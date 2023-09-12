@@ -1,14 +1,14 @@
 FROM ubuntu:22.04
 LABEL maintainer=admin@licsber.site
 
-export TERM=xterm
+ENV TERM=xterm
 
 RUN echo $(nproc) && \
     apt update > /dev/null && \
     apt install -y -qq build-essential git unzip wget python3-distutils \
-                       libncurses5-dev libncursesw5-dev gawk rsync \
+                       libncurses5-dev libncursesw5-dev gawk rsync file \
                        libc6-dev-i386 zlib1g-dev gcc-multilib g++-multilib \
-                       bison file > /dev/null && \
+                        > /dev/null && \
     apt clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
 
