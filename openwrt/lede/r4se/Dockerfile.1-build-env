@@ -1,0 +1,21 @@
+FROM ubuntu:22.04
+LABEL maintainer=admin@licsber.site
+
+RUN echo $(nproc) && \
+    apt update > /dev/null && \
+    apt install -y -qq build-essential > /dev/null && \
+    apt clean > /dev/null && \
+    rm -rf /var/lib/apt/list/*
+
+WORKDIR /licsber
+
+RUN git clone --depth=1 https://github.com/licsber/lede.git
+
+RUN cd lede && \
+    ./scripts/feeds update -a && \
+    ./scripts/feeds install -a
+
+RUN cd lede && \
+    make download -j8
+
+CMD ['bash']

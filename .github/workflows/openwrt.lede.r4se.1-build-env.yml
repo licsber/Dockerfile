@@ -7,13 +7,13 @@ on:
     - cron: '46 */8 * * *'
 
 env:
-  DOCKERFILE: openwrt/lede/r4se/Dockerfile.r4se.1-build-env
+  DOCKERFILE: openwrt/lede/r4se/Dockerfile.1-build-env
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: r4se.1-build-env
-  TAG_FULL: r4se.1-build-env-${{ github.sha }}
+  TAG: openwrt.lede.r4se.1-build-env
+  TAG_FULL: openwrt.lede.r4se.1-build-env-${{ github.sha }}
 
 jobs:
   build:
