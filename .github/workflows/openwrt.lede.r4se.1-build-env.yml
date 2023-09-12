@@ -2,11 +2,12 @@ name: R4se Build ENV Docker Image
 
 on:
   workflow_dispatch:
+  push:
   schedule:
     - cron: '46 */8 * * *'
 
 env:
-  DOCKERFILE: Dockerfile.r4se.1-build-env
+  DOCKERFILE: openwrt/lede/r4se/Dockerfile.r4se.1-build-env
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
