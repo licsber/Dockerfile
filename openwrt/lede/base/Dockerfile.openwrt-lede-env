@@ -1,6 +1,8 @@
 FROM ubuntu:22.04
 LABEL maintainer=admin@licsber.site
 
+export TERM=xterm
+
 RUN echo $(nproc) && \
     apt update > /dev/null && \
     apt install -y -qq build-essential git unzip wget python3-distutils \
