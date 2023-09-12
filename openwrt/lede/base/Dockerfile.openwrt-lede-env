@@ -4,13 +4,14 @@ LABEL maintainer=admin@licsber.site
 RUN echo $(nproc) && \
     apt update > /dev/null && \
     apt install -y -qq build-essential git unzip wget python3-distutils \
-                       libncurses5-dev libncursesw5-dev gawk rsync > /dev/null && \
+                       libncurses5-dev libncursesw5-dev gawk rsync \
+                       libssl-dev flex > /dev/null && \
     apt clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
 
 WORKDIR /licsber
 
-RUN git clone --depth=1 https://github.com/licsber/lede.git
+RUN git clone https://github.com/licsber/lede.git
 
 RUN cd lede && \
     ./scripts/feeds update -a && \
