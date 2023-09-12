@@ -1,4 +1,4 @@
-name: R4se Build ENV Docker Image
+name: Build Openwrt LEDE base env Docker Image
 
 on:
   workflow_dispatch:

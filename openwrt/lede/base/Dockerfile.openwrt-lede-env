@@ -4,7 +4,7 @@ LABEL maintainer=admin@licsber.site
 RUN echo $(nproc) && \
     apt update > /dev/null && \
     apt install -y -qq build-essential git unzip wget python3-distutils \
-                       > /dev/null && \
+                       libncurses5-dev libncursesw5-dev awk rsync > /dev/null && \
     apt clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
 
