@@ -3,7 +3,7 @@ LABEL maintainer=admin@licsber.site
 
 RUN echo $(nproc) && \
     apt update > /dev/null && \
-    apt install -y -qq build-essential > /dev/null && \
+    apt install -y -qq build-essential git > /dev/null && \
     apt clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
 
