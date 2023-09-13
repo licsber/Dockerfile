@@ -12,13 +12,14 @@ RUN echo $(nproc) && \
 
 WORKDIR /licsber
 
-RUN git clone https://github.com/licsber/lede.git
+RUN git clone https://github.com/coolsnowwolf/lede.git
 
 RUN cd lede && \
     ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
 RUN cd lede && \
+    make defconfig \
     make download -j8
 
 CMD ['bash']
