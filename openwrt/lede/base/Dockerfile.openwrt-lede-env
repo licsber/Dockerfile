@@ -19,7 +19,7 @@ RUN cd lede && \
     ./scripts/feeds install -a
 
 RUN cd lede && \
-    make defconfig \
+    make defconfig && \
     make download -j8
 
 CMD ['bash']
