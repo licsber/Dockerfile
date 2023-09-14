@@ -1,19 +1,19 @@
-name: Build Openwrt LEDE ENV Docker Image
+name: Build Openwrt LEDE X86 Docker Image
 
 on:
   workflow_dispatch:
   push:
   schedule:
-    - cron: '2 */8 * * *'
+    - cron: '59 */12 * * *'
 
 env:
-  DOCKERFILE: openwrt/lede/env/Dockerfile.openwrt-lede-env
+  DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-x86
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: openwrt-lede-env
-  TAG_FULL: openwrt-lede-env-${{ github.sha }}
+  TAG: openwrt-lede-x86
+  TAG_FULL: openwrt-lede-x86-${{ github.sha }}
 
 jobs:
   build:

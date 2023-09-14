@@ -1,0 +1,16 @@
+FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
+LABEL maintainer=admin@licsber.site
+
+WORKDIR /licsber/lede
+
+RUN ./scripts/feeds update -a && \
+    ./scripts/feeds install -a
+
+RUN make defconfig
+
+RUN make download -j8
+
+RUN make -j4 || make -j1 V=s && \
+    echo $?
+
+CMD ['bash']
