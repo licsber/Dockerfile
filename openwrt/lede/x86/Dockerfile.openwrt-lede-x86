@@ -1,6 +1,8 @@
 FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
 LABEL maintainer=admin@licsber.site
 
+ENV FORCE_UNSAFE_CONFIGURE=1
+
 WORKDIR /licsber/lede
 
 RUN ./scripts/feeds update -a && \
