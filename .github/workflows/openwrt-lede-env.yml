@@ -13,7 +13,7 @@ env:
   NAMESPACE: licsber
   REPOSITORY: github
   TAG: openwrt-lede-env
-  TAG_FULL: openwrt-lede-env-${{ github.sha }}
+  TAG_FULL: openwrt-lede-env-${{ github.run_id }}
 
 jobs:
   build:
