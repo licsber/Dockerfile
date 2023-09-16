@@ -2,13 +2,13 @@ FROM ubuntu:22.04
 LABEL maintainer=admin@licsber.site
 
 RUN echo $(nproc) && \
-    apt --allow-unauthenticated update > /dev/null && \
-    apt --allow-unauthenticated \
+    apt-get --allow-unauthenticated update > /dev/null && \
+    apt-get --allow-unauthenticated \
         install -y -qq build-essential git unzip wget python3-distutils \
                        libncurses5-dev libncursesw5-dev gawk rsync file \
                        libc6-dev-i386 zlib1g-dev gcc-multilib g++-multilib \
                        libelf-dev > /dev/null && \
-    apt clean > /dev/null && \
+    apt-get clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
 
 WORKDIR /licsber
