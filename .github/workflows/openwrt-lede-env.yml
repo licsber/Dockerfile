@@ -2,7 +2,6 @@ name: Build Openwrt LEDE ENV Docker Image
 
 on:
   workflow_dispatch:
-  push:
   schedule:
     - cron: '2 */8 * * *'
 
