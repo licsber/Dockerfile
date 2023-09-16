@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 LABEL maintainer=admin@licsber.site
 
-RUN chmod -R 755 /etc/apt/trusted.gpg.d/
+RUN chmod -R 777 /etc/apt/trusted.gpg.d/
 
 RUN echo $(nproc) && \
     apt update > /dev/null && \
