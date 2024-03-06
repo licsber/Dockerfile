@@ -1,5 +1,5 @@
-FROM debian:12
-LABEL maintainer=admin@licsber.site
+FROM docker.io/debian:12
+LABEL org.opencontainers.image.authors="licsber<admin@licsber.site>"
 
 RUN echo $(nproc) && \
     apt update > /dev/null && \
