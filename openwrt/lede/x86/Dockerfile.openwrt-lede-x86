@@ -1,16 +1,16 @@
 FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
-LABEL maintainer=admin@licsber.site
+LABEL org.opencontainers.image.authors="licsber<admin@licsber.site>"
 
 ENV FORCE_UNSAFE_CONFIGURE=1
 
 WORKDIR /licsber/lede
+COPY openwrt.lede.x86.config .config
 
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
-RUN make defconfig
-
-RUN make download -j8
+RUN make defconfig && \
+    make download -j8
 
 RUN make -j4 || make -j1 V=s && \
     echo $?
