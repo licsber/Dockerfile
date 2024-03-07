@@ -32,8 +32,8 @@ jobs:
         sudo -E apt clean
         sudo -E timedatectl set-timezone "Asia/Shanghai"
 
-    - name: Checkout V3 
-      uses: actions/checkout@v3
+    - name: Checkout V4
+      uses: actions/checkout@v4
 
     - name: Login to ACR V1
       uses: aliyun/acr-login@v1
@@ -48,7 +48,8 @@ jobs:
       run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
-        cd `dirname "${{ env.DOCKERFILE }}"`
+        pwd >> $GITHUB_OUTPUT
+        cd Dockerfile/`dirname "${{ env.DOCKERFILE }}"`
         docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
     
     - name: Push Image
