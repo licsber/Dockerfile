@@ -9,4 +9,3 @@ TAG=openwrt-lede-env
 IMAGE="$REGISTRY/$NAMESPACE/$REPOSITORY:$TAG"
 sudo docker build -t "$IMAGE" --file "$DOCKERFILE" .
 sudo docker push "$IMAGE"
-
