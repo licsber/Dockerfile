@@ -4,7 +4,7 @@ DOCKERFILE=Dockerfile.openwrt-lede-x86
 REGISTRY=registry.cn-beijing.aliyuncs.com
 NAMESPACE=licsber
 REPOSITORY=github
-TAG=openwrt-lede-x86
+TAG=openwrt-lede-x86-manual
 
 IMAGE="$REGISTRY/$NAMESPACE/$REPOSITORY:$TAG"
 sudo docker build -t "$IMAGE" --file "$DOCKERFILE" .

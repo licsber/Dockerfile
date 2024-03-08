@@ -18,8 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - name: Checkout V3 
-      uses: actions/checkout@v3
+    - name: Checkout V4 
+      uses: actions/checkout@v4
 
     - name: Login to ACR V1
       uses: aliyun/acr-login@v1
