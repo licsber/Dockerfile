@@ -13,8 +13,8 @@ RUN echo `nproc` && \
     rm -rf /var/lib/apt/list/*
 
 RUN useradd -c 'licsber user' -m -d /home/licsber -s /bin/bash licsber
-RUN sed -i -e '/\%sudo/ c \%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
-RUN usermod -a -G sudo licsber
+RUN usermod -aG sudo licsber
+RUN echo 'licsber ALL=(ALL)NOPASSWD:ALL' >> /etc/sudoers
 
 USER licsber
 WORKDIR /home/licsber
