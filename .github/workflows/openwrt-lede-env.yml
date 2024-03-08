@@ -1,4 +1,4 @@
-name: Build Openwrt LEDE ENV Docker Image
+name: Build OpenWRT LEDE ENV Docker Image
 
 on:
   workflow_dispatch:
