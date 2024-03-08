@@ -30,6 +30,6 @@ RUN cd lede && \
     make download -j8
 
 RUN cd lede && \
-    make -j
+    make -j3
 
 CMD ['bash']
