@@ -1,12 +1,11 @@
 FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
 LABEL org.opencontainers.image.authors="licsber<admin@licsber.site>"
 
-WORKDIR /home/licsber/lede
-RUN rm -rf bin
-COPY openwrt.lede.x86.config .config
-RUN chmod 777 .config
-
 USER licsber
+WORKDIR /home/licsber/lede
+
+RUN rm -rf bin
+COPY --chown=licsber openwrt.lede.x86.config .config
 
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
