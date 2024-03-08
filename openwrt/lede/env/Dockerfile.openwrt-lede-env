@@ -1,7 +1,7 @@
 FROM docker.io/debian:12
 LABEL org.opencontainers.image.authors="licsber<admin@licsber.site>"
 
-RUN echo $(nproc) && \
+RUN echo `nproc` && \
     apt update > /dev/null && \
     apt install -y -qq build-essential clang flex bison g++ gawk \
                        gcc-multilib g++-multilib gettext git \
@@ -12,7 +12,12 @@ RUN echo $(nproc) && \
     apt clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
 
-WORKDIR /licsber
+RUN useradd -c 'licsber user' -m -d /home/licsber -s /bin/bash licsber
+RUN sed -i -e '/\%sudo/ c \%sudo ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+RUN usermod -a -G sudo licsber
+
+USER licsber
+WORKDIR /home/licsber
 
 RUN git clone https://github.com/coolsnowwolf/lede.git
 
