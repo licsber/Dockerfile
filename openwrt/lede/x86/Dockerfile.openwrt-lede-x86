@@ -4,6 +4,7 @@ LABEL org.opencontainers.image.authors="licsber<admin@licsber.site>"
 WORKDIR /home/licsber/lede
 RUN rm -rf bin
 COPY openwrt.lede.x86.config .config
+RUN chmod 777 .config
 
 USER licsber
 
