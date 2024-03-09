@@ -1,0 +1,13 @@
+name: Reboot Self Win
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Reboot
+      id: build
+      run: |
+        shutdown -r -t 0
