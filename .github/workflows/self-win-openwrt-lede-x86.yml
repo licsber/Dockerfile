@@ -36,10 +36,12 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        $PWD = Get-Location.Path
+        $PWD = Get-Location
+        echo $PWD
+        $PWD = $PWD.Path
         echo $BUILD_DIR
         echo $PWD
-        
+
         $BUILD_DIR = Resolve-Path (Join-Path $PWD $BUILD_DIR)
         cd $BUILD_DIR
 
