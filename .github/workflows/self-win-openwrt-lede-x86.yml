@@ -42,7 +42,7 @@ jobs:
         echo $BUILD_DIR_FULL
         ls $BUILD_DIR_FULL
         pwd
-        cd C:\
+        cd openwrt
         pwd
         cd $BUILD_DIR_FULL
 
