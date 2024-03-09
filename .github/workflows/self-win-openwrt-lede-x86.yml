@@ -36,10 +36,11 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
+        $PWD = Get-Location.Path
         echo $BUILD_DIR
-        pwd
+        echo $PWD
+        
         $BUILD_DIR = Resolve-Path (Join-Path $PWD $BUILD_DIR)
-        pwd
         cd $BUILD_DIR
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
