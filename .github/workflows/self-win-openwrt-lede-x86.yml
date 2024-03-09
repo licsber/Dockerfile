@@ -35,10 +35,8 @@ jobs:
         $TAG = "${{ env.TAG }}"
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
-        SETLOCAL ENABLEDELAYEDEXPANSION
-        $DOCKERFILE = "${{ env.DOCKERFILE }}"
-        FOR %%I IN ("%DOCKERFILE%") DO SET "DOCKERDIR=%%~dpI"
-        CD /D "!DOCKERDIR!"
+        $DOCKERDIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
+        Set-Location -Path $DOCKERDIR
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
