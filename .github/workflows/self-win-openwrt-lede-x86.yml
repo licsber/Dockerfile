@@ -1,4 +1,4 @@
-name: Self Windows OpenWRT LEDE X86 Docker Image
+name: Self Win OpenWRT LEDE X86 Docker Image
 
 on:
   workflow_dispatch:
@@ -40,6 +40,7 @@ jobs:
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
         $BUILD_DIR_FULL = Join-Path $PWD $BUILD_DIR
         echo $BUILD_DIR_FULL
+        ls $BUILD_DIR_FULL
         Set-Location $BUILD_DIR_FULL
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
