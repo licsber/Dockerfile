@@ -35,18 +35,8 @@ jobs:
         $TAG = "${{ env.TAG }}"
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
-        $PWD = Get-Location
-        $PWD = $PWD.Path
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        echo $BUILD_DIR
         cd $BUILD_DIR
-        $BUILD_DIR_FULL = Join-Path $PWD $BUILD_DIR
-        echo $BUILD_DIR_FULL
-        ls $BUILD_DIR_FULL
-        pwd
-        cd C:\licsber\actions-runner\_work\Dockerfile\Dockerfile\openwrt\lede\x86
-        pwd
-        cd "${BUILD_DIR_FULL}"
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
