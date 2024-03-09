@@ -1,8 +1,7 @@
-name: Self Win OpenWRT LEDE X86 Docker Image
+name: OpenWRT LEDE X86 Self Win
 
 on:
   workflow_dispatch:
-  push:
 
 env:
   DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-x86

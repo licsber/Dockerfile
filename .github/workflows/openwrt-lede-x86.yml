@@ -1,9 +1,9 @@
-name: Build OpenWRT LEDE X86 Docker Image
+name: OpenWRT LEDE X86
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '59 */12 * * *'
+    - cron: '59 4,12,20 * * *'
 
 env:
   DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-x86
