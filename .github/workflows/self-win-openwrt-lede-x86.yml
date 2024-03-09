@@ -42,7 +42,7 @@ jobs:
         echo $BUILD_DIR_FULL
         ls $BUILD_DIR_FULL
         pwd
-        cd openwrt
+        cd C:\licsber\actions-runner\_work\Dockerfile\Dockerfile\openwrt\lede\x86
         pwd
         cd "${BUILD_DIR_FULL}"
 
