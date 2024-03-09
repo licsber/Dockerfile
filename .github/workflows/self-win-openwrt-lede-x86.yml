@@ -44,7 +44,7 @@ jobs:
         pwd
         cd openwrt
         pwd
-        cd $BUILD_DIR_FULL
+        cd "${BUILD_DIR_FULL}"
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
