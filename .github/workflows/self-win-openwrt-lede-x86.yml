@@ -42,7 +42,8 @@ jobs:
         echo $BUILD_DIR
         echo $PWD
 
-        $BUILD_DIR = Resolve-Path (Join-Path $PWD $BUILD_DIR)
+        $BUILD_DIR = Join-Path $PWD $BUILD_DIR
+        echo $BUILD_DIR
         cd $BUILD_DIR
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
