@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Temp
       run: |
-        git config --global --add safe.directory C:/licsber/actions-runner/_work/Dockerfile/Dockerfile
+        rmdir C:/licsber/actions-runner/_work
 
     - name: Checkout V4 
       uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
       run: |
         SET IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
-        docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
+        docker build -t "%IMAGE%:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
 
     - name: Push Image
       run: |
