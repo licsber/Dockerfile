@@ -38,9 +38,9 @@ jobs:
         $PWD = Get-Location
         $PWD = $PWD.Path
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        $BUILD_DIR = Join-Path $PWD $BUILD_DIR
-        echo $BUILD_DIR
-        Set-Location $BUILD_DIR
+        $BUILD_DIR_FULL = Join-Path $PWD $BUILD_DIR
+        echo $BUILD_DIR_FULL
+        Set-Location $BUILD_DIR_FULL
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
