@@ -37,6 +37,8 @@ jobs:
 
         pwd
         $DOCKERDIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
+        echo $DOCKERDIR
+        ls
         Set-Location -Path $DOCKERDIR
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
