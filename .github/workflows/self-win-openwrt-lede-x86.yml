@@ -17,6 +17,10 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
+    - name: Temp
+      run: |
+        git config --global --add safe.directory C:/licsber/actions-runner/_work/Dockerfile/Dockerfile
+
     - name: Checkout V4 
       uses: actions/checkout@v4
 
@@ -31,7 +35,6 @@ jobs:
     - name: Build Image
       id: build
       run: |
-        git config --global --add safe.directory C:/licsber/actions-runner/_work/Dockerfile/Dockerfile
         SET IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
