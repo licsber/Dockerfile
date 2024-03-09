@@ -1,0 +1,42 @@
+name: Self-hosted Windows test
+
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-x86
+  REGION: cn-beijing
+  REGISTRY: registry.cn-beijing.aliyuncs.com
+  NAMESPACE: licsber
+  REPOSITORY: github
+  TAG: win-test
+  TAG_FULL: win-test-${{ github.run_id }}
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout V4 
+      uses: actions/checkout@v4
+
+    - name: Login to ACR V1
+      uses: aliyun/acr-login@v1
+      with:
+        login-server: "https://${{ env.REGISTRY }}"
+        username: "${{ secrets.ACR_USERNAME }}"
+        password: "${{ secrets.ACR_PASSWD }}"
+        region-id: "${{ env.REGION }}"
+
+    - name: Build Image
+      id: build
+      run: |
+        IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
+        docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
+
+    - name: Push Image
+      run: |
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG }}"
+        docker tag "${{ steps.build.outputs.image }}:${{ env.TAG }}" "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
