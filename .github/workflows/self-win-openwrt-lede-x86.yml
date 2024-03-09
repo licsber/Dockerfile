@@ -17,10 +17,6 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-    - name: Temp
-      run: |
-        rm -rf C:/licsber/actions-runner/_work/Dockerfile
-
     - name: Checkout V4 
       uses: actions/checkout@v4
 
