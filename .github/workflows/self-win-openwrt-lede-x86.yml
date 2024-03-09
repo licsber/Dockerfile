@@ -34,6 +34,12 @@ jobs:
         $IMAGE = "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}"
         $TAG = "${{ env.TAG }}"
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
+
+        SETLOCAL ENABLEDELAYEDEXPANSION
+        $DOCKERFILE = "${{ env.DOCKERFILE }}"
+        FOR %%I IN ("%DOCKERFILE%") DO SET "DOCKERDIR=%%~dpI"
+        CD /D "!DOCKERDIR!"
+
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
     - name: Push Image
