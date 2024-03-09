@@ -7,7 +7,6 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-    - name: Reboot
-      id: build
+    - name: Trigger Reboot
       run: |
         shutdown -r -t 0
