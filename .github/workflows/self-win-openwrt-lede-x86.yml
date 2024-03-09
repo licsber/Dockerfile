@@ -5,7 +5,7 @@ on:
   push:
 
 env:
-  DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-x86
+  DOCKERFILE: openwrt\lede\x86\Dockerfile.openwrt-lede-x86
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
