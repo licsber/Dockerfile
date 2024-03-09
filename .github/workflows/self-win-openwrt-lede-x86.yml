@@ -1,4 +1,4 @@
-name: Self-hosted Windows OpenWRT LEDE X86 Docker Image
+name: Self Windows OpenWRT LEDE X86 Docker Image
 
 on:
   workflow_dispatch:
@@ -31,6 +31,7 @@ jobs:
     - name: Build Image
       id: build
       run: |
+        git config --global --add safe.directory C:/licsber/actions-runner/_work/Dockerfile/Dockerfile
         SET IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
