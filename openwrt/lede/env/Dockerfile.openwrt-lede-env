@@ -32,6 +32,6 @@ RUN cd lede && \
     make download -j8
 
 RUN cd lede && \
-    make -j || make V=s
+    make -j3 || make V=s
 
 CMD ['bash']
