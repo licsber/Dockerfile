@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Temp
       run: |
-        rmdir C:/licsber/actions-runner/_work
+        rm -rf C:/licsber/actions-runner/_work/Dockerfile
 
     - name: Checkout V4 
       uses: actions/checkout@v4
