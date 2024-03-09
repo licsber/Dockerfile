@@ -36,7 +36,8 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        Set-Location -Path "${BUILD_DIR}" -PassThru
+        $BUILD_DIR = $BUILD_DIR.Path
+        Set-Location "${BUILD_DIR}"
 
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
