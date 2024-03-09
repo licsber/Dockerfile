@@ -36,7 +36,6 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        $BUILD_DIR = $BUILD_DIR.Path
         echo $BUILD_DIR
         Set-Location $BUILD_DIR
         pwd
