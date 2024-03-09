@@ -8,6 +8,7 @@ RUN echo `nproc` && \
                        libncurses-dev libssl-dev python3-distutils \
                        libelf-dev python3-pyelftools \
                        rsync unzip zlib1g-dev file wget \
+                       qemu-utils \
                        > /dev/null && \
     apt clean > /dev/null && \
     rm -rf /var/lib/apt/list/*
