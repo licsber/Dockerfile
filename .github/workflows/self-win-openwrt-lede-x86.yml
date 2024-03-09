@@ -1,4 +1,4 @@
-name: Self-hosted Windows test
+name: Self-hosted Windows OpenWRT LEDE X86 Docker Image
 
 on:
   workflow_dispatch:
@@ -10,8 +10,8 @@ env:
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: win-test
-  TAG_FULL: win-test-${{ github.run_id }}
+  TAG: win-openwrt-lede-x86
+  TAG_FULL: win-openwrt-lede-x86-${{ github.run_id }}
 
 jobs:
   build:
