@@ -31,8 +31,8 @@ jobs:
     - name: Build Image
       id: build
       run: |
-        SET IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
-        SET TAG=${{ env.TAG }}
+        SETX IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
+        SETX TAG=${{ env.TAG }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} .
 
