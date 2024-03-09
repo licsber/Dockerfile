@@ -36,7 +36,9 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        $BUILD_DIR = Resolve-Path (Join-Path $PSScriptRoot $BUILD_DIR)
+        echo $BUILD_DIR
+        pwd
+        $BUILD_DIR = Resolve-Path (Join-Path $PWD $BUILD_DIR)
         pwd
         cd $BUILD_DIR
 
