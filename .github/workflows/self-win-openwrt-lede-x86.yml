@@ -14,7 +14,7 @@ env:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Windows]
     steps:
     - name: Checkout V4 
       uses: actions/checkout@v4
