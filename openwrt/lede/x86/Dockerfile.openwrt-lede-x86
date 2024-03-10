@@ -13,7 +13,7 @@ RUN ./scripts/feeds update -a && \
 RUN make defconfig && \
     make download -j8
 
-RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j || make V=s; fi && \
+RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j `nproc` || make V=s; fi && \
     echo $?
 
 CMD ['bash']
