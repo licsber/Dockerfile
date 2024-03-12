@@ -1,0 +1,23 @@
+FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
+LABEL org.opencontainers.image.authors='licsber<admin@licsber.site>'
+
+USER licsber
+WORKDIR /home/licsber/lede
+
+RUN rm -rf bin
+
+RUN ./scripts/feeds update -a && \
+    ./scripts/feeds install -a
+
+COPY --chown=licsber openwrt.lede.ct6.x86.config .config
+RUN make defconfig && \
+    make download -j8
+
+RUN sed -i 's/192.168.1.1/10.24.6.1/g' package/base-files/files/bin/config_generate
+RUN sed -i "s/hostname='OpenWrt'/hostname='ChinaTelecomOT'/g" package/base-files/files/bin/config_generate
+
+ENV GOPROXY='https://goproxy.io,direct'
+RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j `nproc` || make V=s; fi && \
+    echo $?
+
+CMD ['bash']

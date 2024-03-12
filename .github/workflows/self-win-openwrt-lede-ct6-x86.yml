@@ -1,0 +1,43 @@
+name: OpenWRT LEDE CT6 X86 Self Win
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-ct6-x86
+  REGION: cn-beijing
+  REGISTRY: registry.cn-beijing.aliyuncs.com
+  NAMESPACE: licsber
+  REPOSITORY: github
+  TAG: win-openwrt-lede-ct6-x86
+  TAG_FULL: win-openwrt-lede-ct6-x86-${{ github.run_id }}
+
+jobs:
+  build:
+    runs-on: [self-hosted, Windows]
+    steps:
+    - name: Checkout V4 
+      uses: actions/checkout@v4
+
+    - name: Login to ACR V1
+      uses: aliyun/acr-login@v1
+      with:
+        login-server: "https://${{ env.REGISTRY }}"
+        username: "${{ secrets.ACR_USERNAME }}"
+        password: "${{ secrets.ACR_PASSWD }}"
+        region-id: "${{ env.REGION }}"
+
+    - name: Build Image
+      run: |
+        $IMAGE = "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}"
+        $TAG = "${{ env.TAG }}"
+
+        $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
+        docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
+
+    - name: Push Image
+      run: |
+        $IMAGE = "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}"
+        docker push "${IMAGE}:${{ env.TAG }}"
+        docker tag "${IMAGE}:${{ env.TAG }}" "${IMAGE}:${{ env.TAG_FULL }}"
+        docker push "${IMAGE}:${{ env.TAG_FULL }}"
