@@ -33,7 +33,7 @@ jobs:
         $TAG = "${{ env.TAG }}"
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
+        docker build --no-cache -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
 
     - name: Push Image
       run: |
