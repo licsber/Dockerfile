@@ -35,7 +35,6 @@ jobs:
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
-        $env:GOPROXY = 'https://goproxy.io,direct'
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
 
     - name: Push Image
