@@ -20,4 +20,6 @@ ENV GOPROXY='https://goproxy.io,direct'
 RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j `nproc` || make V=s; fi && \
     echo $?
 
+RUN tree bin
+
 CMD ["echo 'Hello from LicsberLab!~'"]
