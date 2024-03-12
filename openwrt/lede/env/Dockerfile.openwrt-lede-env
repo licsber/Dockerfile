@@ -34,4 +34,4 @@ RUN cd lede && \
 RUN cd lede && \
     make -j3 || make V=s
 
-CMD ['bash']
+CMD ["echo 'Hello from LicsberLab!~'"]
