@@ -28,17 +28,16 @@ jobs:
         region-id: "${{ env.REGION }}"
 
     - name: Build Image
-      id: build
       run: |
         $IMAGE = "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}"
         $TAG = "${{ env.TAG }}"
-        echo "image=${IMAGE}" >> $GITHUB_OUTPUT
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
         docker build -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
 
     - name: Push Image
       run: |
-        docker push "${{ steps.build.outputs.image }}:${{ env.TAG }}"
-        docker tag "${{ steps.build.outputs.image }}:${{ env.TAG }}" "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
-        docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        $IMAGE = "${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}"
+        docker push "${IMAGE}:${{ env.TAG }}"
+        docker tag "${IMAGE}:${{ env.TAG }}" "${IMAGE}:${{ env.TAG_FULL }}"
+        docker push "${IMAGE}:${{ env.TAG_FULL }}"
