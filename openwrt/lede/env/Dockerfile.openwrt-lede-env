@@ -37,6 +37,6 @@ RUN cd lede && \
 RUN cd lede && \
     make -j3 || make V=s
 
-RUN tree bin
+RUN tree -h lede/bin
 
 CMD ["echo 'Hello from LicsberLab!~'"]
