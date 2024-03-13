@@ -10,6 +10,7 @@ RUN lscpu && \
                         libssl-dev \
                         libelf-dev python3-pyelftools \
                         qemu-utils \
+                        xmlto \
                         screenfetch tree \
                         flex bison gawk gettext rsync unzip zlib1g-dev file wget \
                         > /dev/null && \
