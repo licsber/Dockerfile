@@ -33,6 +33,7 @@ jobs:
         $TAG = "${{ env.TAG }}"
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
+        docker pull "${IMAGE}:openwrt-lede-env"
         docker build --no-cache -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
 
     - name: Push Image
