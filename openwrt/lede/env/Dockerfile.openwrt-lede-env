@@ -39,4 +39,4 @@ RUN cd lede && \
 
 RUN tree -h lede/bin
 
-CMD ["echo 'Hello from LicsberLab!~'"]
+CMD ["echo", "Hello from LicsberLab!~"]

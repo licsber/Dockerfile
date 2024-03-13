@@ -19,4 +19,4 @@ RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j `nproc` || mak
 
 RUN tree -h bin
 
-CMD ["echo 'Hello from LicsberLab!~'"]
+CMD ["echo", "Hello from LicsberLab!~"]
