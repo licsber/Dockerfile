@@ -47,7 +47,8 @@ jobs:
       run: |
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
-        docker build -t "$IMAGE:${{ env.TAG }}" --file ${{ env.DOCKERFILE }} .
+        cd `dirname "${{ env.DOCKERFILE }}"`
+        docker build -t "$IMAGE:${{ env.TAG }}" --file `basename ${{ env.DOCKERFILE }}` .
 
     - name: Push Image
       run: |
