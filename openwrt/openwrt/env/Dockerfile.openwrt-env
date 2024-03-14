@@ -1,0 +1,45 @@
+FROM docker.io/debian:12
+LABEL org.opencontainers.image.authors='licsber<admin@licsber.site>'
+
+RUN lscpu && \
+    apt update > /dev/null && \
+    apt install -y -qq build-essential clang g++ gcc-multilib g++-multilib \
+                        git \
+                        python3-distutils \
+                        libncurses-dev \
+                        libssl-dev \
+                        libelf-dev python3-pyelftools \
+                        qemu-utils \
+                        xmlto \
+                        screenfetch tree \
+                        flex bison gawk gettext rsync unzip zlib1g-dev file wget \
+                        > /dev/null && \
+    apt clean > /dev/null && \
+    rm -rf /var/lib/apt/list/* && \
+    screenfetch
+
+RUN useradd -c 'licsber user' -m -d /home/licsber -s /bin/bash licsber
+RUN usermod -aG sudo licsber
+RUN echo 'licsber ALL=(ALL)NOPASSWD:ALL' >> /etc/sudoers
+
+USER licsber
+WORKDIR /home/licsber
+
+RUN git clone https://github.com/openwrt/openwrt.git
+
+RUN cd openwrt && \
+    ./scripts/feeds update -a && \
+    ./scripts/feeds install -a
+
+RUN cd openwrt && \
+    make defconfig && \
+    make download -j8
+
+COPY --chown=licsber banner package/base-files/files/etc/banner
+
+RUN cd openwrt && \
+    make -j3 || make V=s
+
+RUN tree -h openwrt/bin
+
+CMD ["echo", "Hello from LicsberLab!~"]
