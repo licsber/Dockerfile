@@ -35,7 +35,7 @@ RUN cd lede && \
     make defconfig && \
     make download -j8
 
-COPY --chown=licsber banner package/base-files/files/etc/banner
+COPY --chown=licsber banner lede/package/base-files/files/etc/banner
 
 RUN cd lede && \
     make -j3 || make V=s
