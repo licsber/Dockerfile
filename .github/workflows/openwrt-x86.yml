@@ -1,0 +1,59 @@
+name: OpenWRT LEDE X86
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '59 4,12,20 * * *'
+
+env:
+  DOCKERFILE: openwrt/openwrt/x86/Dockerfile.openwrt-x86
+  REGION: cn-beijing
+  REGISTRY: registry.cn-beijing.aliyuncs.com
+  NAMESPACE: licsber
+  REPOSITORY: github
+  TAG: openwrt-x86
+  TAG_FULL: openwrt-x86-${{ github.run_id }}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Save space
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi `docker images -q`
+        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E rm -rf /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" /opt/ghc
+        sudo -E apt update -y
+        sudo -E apt -y purge azure-cli* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
+        sudo -E systemctl daemon-reload
+        sudo -E apt -y autoremove --purge
+        sudo -E apt clean
+        sudo -E timedatectl set-timezone "Asia/Shanghai"
+        df -h
+
+    - name: Checkout V4
+      uses: actions/checkout@v4
+
+    - name: Login to ACR V1
+      uses: aliyun/acr-login@v1
+      with:
+        login-server: "https://${{ env.REGISTRY }}"
+        username: "${{ secrets.ACR_USERNAME }}"
+        password: "${{ secrets.ACR_PASSWD }}"
+        region-id: "${{ env.REGION }}"
+
+    - name: Build Image
+      id: build
+      run: |
+        IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
+        echo "image=$IMAGE" >> $GITHUB_OUTPUT
+        cd `dirname "${{ env.DOCKERFILE }}"`
+        docker build -t "$IMAGE:${{ env.TAG }}" --file `basename ${{ env.DOCKERFILE }}` .
+
+    - name: Push Image
+      run: |
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG }}"
+        docker tag "${{ steps.build.outputs.image }}:${{ env.TAG }}" "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
+        docker push "${{ steps.build.outputs.image }}:${{ env.TAG_FULL }}"
