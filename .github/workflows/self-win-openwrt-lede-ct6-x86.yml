@@ -2,6 +2,8 @@ name: OpenWRT LEDE CT6 X86 Self Win
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'
 
 env:
   DOCKERFILE: openwrt/lede/ct6-x86/Dockerfile.openwrt-lede-ct6-x86
