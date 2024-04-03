@@ -2,6 +2,7 @@ name: OpenWRT LEDE X86
 
 on:
   workflow_dispatch:
+  push:
   schedule:
     - cron: '1 4,12,20 * * *'
 
@@ -36,7 +37,7 @@ jobs:
     - name: Change Docker Space
       run: |
         sudo -E mkdir -p /mnt/licsber/docker
-        sudo -E echo '{"data-root": "/mnt/licsber/docker"}' > /etc/docker/daemon.json
+        sudo -E bash -c "echo '{"data-root": "/mnt/licsber/docker"}' > /etc/docker/daemon.json"
         sudo -E systemctl daemon-reload
         sudo -E systemctl restart docker
         df -Th
