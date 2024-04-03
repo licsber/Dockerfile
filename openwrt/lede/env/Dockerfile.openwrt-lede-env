@@ -18,28 +18,27 @@ RUN lscpu && \
     rm -rf /var/lib/apt/list/* && \
     screenfetch
 
-RUN useradd -c 'licsber user' -m -d /home/licsber -s /bin/bash licsber
+RUN useradd -c 'licsber user' -m -d /mnt/licsber -s /bin/bash licsber
 RUN usermod -aG sudo licsber
 RUN echo 'licsber ALL=(ALL)NOPASSWD:ALL' >> /etc/sudoers
 
 USER licsber
-WORKDIR /home/licsber
+WORKDIR /mnt/licsber
 
 RUN git clone https://github.com/coolsnowwolf/lede.git
 
-RUN cd lede && \
-    ./scripts/feeds update -a && \
+WORKDIR /mnt/licsber/lede
+
+COPY --chown=licsber banner package/base-files/files/etc/banner
+
+RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
-RUN cd lede && \
-    make defconfig && \
+RUN make defconfig && \
     make download -j8
 
-COPY --chown=licsber banner lede/package/base-files/files/etc/banner
+RUN make -j3 || make V=s
 
-RUN cd lede && \
-    make -j3 || make V=s
-
-RUN tree -h lede/bin
+RUN tree -h bin
 
 CMD ["echo", "Hello from LicsberLab!~"]

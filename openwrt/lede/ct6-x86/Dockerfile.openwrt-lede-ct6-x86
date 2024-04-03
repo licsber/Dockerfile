@@ -2,14 +2,16 @@ FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
 LABEL org.opencontainers.image.authors='licsber<admin@licsber.site>'
 
 USER licsber
-WORKDIR /home/licsber/lede
+WORKDIR /mnt/licsber/lede
 
 RUN rm -rf bin
+RUN git pull
+
+COPY --chown=licsber openwrt.lede.ct6.x86.config .config
 
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
-COPY --chown=licsber openwrt.lede.ct6.x86.config .config
 RUN make defconfig && \
     make download -j8
 

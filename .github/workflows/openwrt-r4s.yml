@@ -1,18 +1,18 @@
-name: OpenWRT LEDE X86
+name: OpenWRT R4s
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '1 4,12,20 * * *'
+    - cron: '16 4,12,20 * * *'
 
 env:
-  DOCKERFILE: openwrt/lede/x86/Dockerfile.openwrt-lede-x86
+  DOCKERFILE: openwrt/openwrt/r4s/Dockerfile.openwrt-r4s
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: openwrt-lede-x86
-  TAG_FULL: openwrt-lede-x86-${{ github.run_id }}
+  TAG: openwrt-r4s
+  TAG_FULL: openwrt-r4s-${{ github.run_id }}
 
 jobs:
   build:
