@@ -7,6 +7,8 @@ WORKDIR /home/licsber/lede
 RUN rm -rf bin
 COPY --chown=licsber openwrt.lede.x86.config .config
 
+RUN sed -i 's/coolsnowwolf\/packages/licsber\/packages/g' feeds.conf.default
+
 RUN ./scripts/feeds update -a && \
     ./scripts/feeds install -a
 
