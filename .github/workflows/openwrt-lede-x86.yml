@@ -36,10 +36,12 @@ jobs:
 
     - name: Change Docker Space
       run: |
+        sudo -E systemctl disable --now docker.socket
+        sudo -E systemctl disable --now docker
         sudo -E mkdir -p /mnt/licsber/docker
         sudo -E bash -c "echo '{"data-root": "/mnt/licsber/docker"}' > /etc/docker/daemon.json"
         sudo -E systemctl daemon-reload
-        sudo -E systemctl restart docker || echo licsber
+        sudo -E systemctl start docker || echo licsber
         sudo -E systemctl status docker
         sudo -E journalctl -xeu docker
         exit -1
