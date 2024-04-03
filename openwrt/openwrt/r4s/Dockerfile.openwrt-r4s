@@ -2,7 +2,7 @@ FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-env
 LABEL org.opencontainers.image.authors='licsber<admin@licsber.site>'
 
 USER licsber
-WORKDIR /mnt/licsber/openwrt
+WORKDIR /home/licsber/openwrt
 
 RUN rm -rf bin
 RUN git pull

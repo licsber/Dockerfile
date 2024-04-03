@@ -2,7 +2,7 @@ FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
 LABEL org.opencontainers.image.authors='licsber<admin@licsber.site>'
 
 USER licsber
-WORKDIR /mnt/licsber/lede
+WORKDIR /home/licsber/lede
 
 RUN rm -rf bin
 RUN git pull
