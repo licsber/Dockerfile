@@ -46,6 +46,7 @@ jobs:
       id: build
       run: |
         df -Th
+        systemctl restart docker
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         cd `dirname "${{ env.DOCKERFILE }}"`
