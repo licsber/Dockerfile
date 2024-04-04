@@ -19,31 +19,14 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - name: Save space
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        docker rmi `docker images -q`
-        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E rm -rf /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" /opt/ghc
-        sudo -E apt update -y
-        sudo -E apt -y purge azure-cli* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-        sudo -E systemctl daemon-reload
-        sudo -E apt -y autoremove --purge
-        sudo -E apt clean
-        sudo -E timedatectl set-timezone "Asia/Shanghai"
-        df -Th
-
-    - name: Change Docker Space
-      run: |
-        sudo -E systemctl disable --now docker.socket
-        sudo -E systemctl disable --now docker
-        sudo -E mkdir -p /mnt/licsber/docker
-        sudo -E bash -c "echo '{"data-root": "/mnt/licsber/docker"}' > /etc/docker/daemon.json"
-        sudo -E systemctl daemon-reload
-        sudo -E systemctl start docker.socket
-        sudo -E systemctl status docker
-        df -Th
+    - name: Maximize Space V10
+      uses: easimon/maximize-build-space@v10
+      with:
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
 
     - name: Checkout V4
       uses: actions/checkout@v4
@@ -59,10 +42,12 @@ jobs:
     - name: Build Image
       id: build
       run: |
+        df -Th
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         cd `dirname "${{ env.DOCKERFILE }}"`
         docker build -t "$IMAGE:${{ env.TAG }}" --file `basename ${{ env.DOCKERFILE }}` .
+        df -Th
 
     - name: Push Image
       run: |
