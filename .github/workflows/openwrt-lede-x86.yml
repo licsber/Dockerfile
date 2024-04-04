@@ -2,7 +2,6 @@ name: OpenWRT LEDE X86
 
 on:
   workflow_dispatch:
-  push:
   schedule:
     - cron: '1 4,12,20 * * *'
 
@@ -23,7 +22,6 @@ jobs:
       uses: easimon/maximize-build-space@v10
       with:
         root-reserve-mb: 100
-        swap-size-mb: 1024
         build-mount-path: /var/lib/docker
         remove-dotnet: 'true'
         remove-android: 'true'
@@ -47,10 +45,12 @@ jobs:
       run: |
         df -Th
         sudo systemctl restart docker
+
         IMAGE=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ env.REPOSITORY }}
         echo "image=$IMAGE" >> $GITHUB_OUTPUT
         cd `dirname "${{ env.DOCKERFILE }}"`
         docker build -t "$IMAGE:${{ env.TAG }}" --file `basename ${{ env.DOCKERFILE }}` .
+
         df -Th
 
     - name: Push Image
