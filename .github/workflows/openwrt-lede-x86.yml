@@ -43,7 +43,6 @@ jobs:
         sudo -E systemctl daemon-reload
         sudo -E systemctl start docker.socket
         sudo -E systemctl status docker
-        sudo -E journalctl -xeu docker.service
         df -Th
 
     - name: Checkout V4
