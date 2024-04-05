@@ -21,7 +21,7 @@ jobs:
     - name: Maximize Space V10
       uses: easimon/maximize-build-space@v10
       with:
-        root-reserve-mb: 100
+        root-reserve-mb: 1024
         build-mount-path: /var/lib/docker
         remove-dotnet: 'true'
         remove-android: 'true'
