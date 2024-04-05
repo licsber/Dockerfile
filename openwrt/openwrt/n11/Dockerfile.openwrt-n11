@@ -1,4 +1,4 @@
-FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-lede-env
+FROM registry.cn-beijing.aliyuncs.com/licsber/github:openwrt-env
 LABEL org.opencontainers.image.authors='licsber<admin@licsber.site>'
 
 USER licsber
