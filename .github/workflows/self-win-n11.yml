@@ -1,16 +1,18 @@
-name: OpenWRT LEDE CT6 X86 Self Win
+name: Self Win N11
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 */8 * * *'
 
 env:
-  DOCKERFILE: openwrt/lede/ct6-x86/Dockerfile.openwrt-lede-ct6-x86
+  DOCKERFILE: openwrt/openwrt/n11/Dockerfile.openwrt-n11
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: win-openwrt-lede-ct6-x86
-  TAG_FULL: win-openwrt-lede-ct6-x86-${{ github.run_id }}
+  TAG: win-openwrt-n11
+  TAG_FULL: win-openwrt-n11-${{ github.run_id }}
 
 jobs:
   build:
