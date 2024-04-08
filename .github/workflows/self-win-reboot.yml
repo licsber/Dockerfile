@@ -1,4 +1,4 @@
-name: Reboot Self Win
+name: Self Win Reboot
 
 on:
   workflow_dispatch:
