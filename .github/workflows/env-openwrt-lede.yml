@@ -1,4 +1,4 @@
-name: OpenWRT LEDE ENV
+name: ENV OpenWRT LEDE
 
 on:
   workflow_dispatch:

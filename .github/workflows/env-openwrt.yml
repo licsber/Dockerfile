@@ -1,4 +1,4 @@
-name: OpenWRT ENV
+name: ENV OpenWRT
 
 on:
   workflow_dispatch:
