@@ -1,4 +1,4 @@
-name: OpenWRT LEDE X86 Self Win
+name: Self Win OpenWRT LEDE X86
 
 on:
   workflow_dispatch:
