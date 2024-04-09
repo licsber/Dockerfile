@@ -27,11 +27,11 @@ WORKDIR /home/licsber/openwrt
 
 COPY --chown=licsber banner package/base-files/files/etc/banner
 
-RUN ./scripts/feeds update -a && \
-    ./scripts/feeds install -a
+RUN ./scripts/feeds update -a
+RUN ./scripts/feeds install -a
 
-RUN make defconfig && \
-    make download -j8
+RUN make defconfig
+RUN make download -j8
 
 RUN make -j3 || make V=s
 
