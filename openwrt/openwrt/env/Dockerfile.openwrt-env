@@ -25,17 +25,18 @@ RUN git clone https://github.com/openwrt/openwrt.git
 
 WORKDIR /home/licsber/openwrt
 
-COPY --chown=licsber banner package/base-files/files/etc/banner
-COPY --chown=licsber openwrt.env.config .config
+COPY --chown=licsber files/ files/
+RUN tree
+# COPY --chown=licsber openwrt.env.config .config
 
-RUN ./scripts/feeds update -a
-RUN ./scripts/feeds install -a
+# RUN ./scripts/feeds update -a
+# RUN ./scripts/feeds install -a
+#
+# RUN make defconfig
+# RUN make download -j8
 
-RUN make defconfig
-RUN make download -j8
+# RUN make -j3 || make V=s
 
-RUN make -j3 || make V=s
-
-RUN tree -h bin
+# RUN tree -h bin
 
 CMD ["echo", "Hello from LicsberLab!~"]
