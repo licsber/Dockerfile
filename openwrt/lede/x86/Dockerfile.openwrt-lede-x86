@@ -18,7 +18,7 @@ RUN make download -j8
 
 RUN sed -i 's/192.168.1.1/10.24.0.10/g' package/base-files/files/bin/config_generate
 RUN sed -i "s/hostname='OpenWrt'/hostname='LicsberLEDE'/g" package/base-files/files/bin/config_generate
-RUN sed -i "s/timezone='UTC'/timezone='UTC+8'/g" package/base-files/files/bin/config_generate
+RUN sed -i "s/timezone='UTC'/timezone='Asia\/Shanghai'/g" package/base-files/files/bin/config_generate
 
 ENV GOPROXY='https://goproxy.io,direct'
 RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j `nproc` || make V=s; fi && \
