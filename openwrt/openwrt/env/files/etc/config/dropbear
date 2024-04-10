@@ -1,0 +1,5 @@
+config dropbear
+	option Port '22'
+	option RootPasswordAuth 'off'
+	option GatewayPorts 'on'
+	option PasswordAuth 'off'
