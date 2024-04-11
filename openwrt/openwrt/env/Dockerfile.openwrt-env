@@ -28,6 +28,13 @@ WORKDIR /home/licsber/openwrt
 COPY --chown=licsber files/ files/
 COPY --chown=licsber openwrt.env.config .config
 
+RUN sed -i "s/timezone='UTC'/timezone='CST-8'/g" package/base-files/files/bin/config_generate
+RUN sed -i 's/zonename:string/zonename:string:Asia\/Shanghai/g' package/base-files/files/etc/init.d/system
+RUN sed -i 's/0.openwrt.pool.ntp.org/ntp.aliyun.com/g' package/base-files/files/bin/config_generate
+RUN sed -i 's/1.openwrt.pool.ntp.org/time1.cloud.tencent.com/g' package/base-files/files/bin/config_generate
+RUN sed -i 's/2.openwrt.pool.ntp.org/time.ustc.edu.cn/g' package/base-files/files/bin/config_generate
+RUN sed -i 's/3.openwrt.pool.ntp.org/cn.pool.ntp.org/g' package/base-files/files/bin/config_generate
+
 RUN ./scripts/feeds update -a
 RUN ./scripts/feeds install -a
 
