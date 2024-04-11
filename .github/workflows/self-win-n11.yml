@@ -35,6 +35,7 @@ jobs:
         $TAG = "${{ env.TAG }}"
 
         $BUILD_DIR = Split-Path -Parent "${{ env.DOCKERFILE }}"
+        docker system prune -a -f
         docker pull "${IMAGE}:openwrt-lede-env"
         docker build --no-cache -t "${IMAGE}:${TAG}" --file ${{ env.DOCKERFILE }} $BUILD_DIR
 
