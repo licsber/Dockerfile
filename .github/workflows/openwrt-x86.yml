@@ -18,20 +18,17 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-    - name: Save space
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        docker rmi `docker images -q`
-        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E rm -rf /usr/local/share/boost "$AGENT_TOOLSDIRECTORY" /opt/ghc
-        sudo -E apt update -y
-        sudo -E apt -y purge azure-cli* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-        sudo -E systemctl daemon-reload
-        sudo -E apt -y autoremove --purge
-        sudo -E apt clean
-        sudo -E timedatectl set-timezone "Asia/Shanghai"
-        df -Th
+    - name: Maximize Space V10
+      uses: easimon/maximize-build-space@v10
+      with:
+        root-reserve-mb: 1024
+        swap-size-mb: 10240
+        build-mount-path: /var/lib/docker
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
 
     - name: Checkout V4
       uses: actions/checkout@v4

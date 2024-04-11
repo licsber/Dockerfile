@@ -22,6 +22,7 @@ jobs:
       uses: easimon/maximize-build-space@v10
       with:
         root-reserve-mb: 1024
+        swap-size-mb: 10240
         build-mount-path: /var/lib/docker
         remove-dotnet: 'true'
         remove-android: 'true'
