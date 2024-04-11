@@ -17,6 +17,7 @@ RUN make defconfig
 RUN make download -j8
 
 RUN sed -i 's/192.168.1.1/10.24.0.10/g' package/base-files/files/bin/config_generate
+RUN sed -i 's/255.255.255.0/255.0.0.0/g' package/base-files/files/bin/config_generate
 RUN sed -i "s/hostname='OpenWrt'/hostname='LicsberLEDE'/g" package/base-files/files/bin/config_generate
 RUN sed -i "s/timezone='UTC'/timezone='CST-8'/g" package/base-files/files/bin/config_generate
 
