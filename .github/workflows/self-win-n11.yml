@@ -2,8 +2,6 @@ name: Self Win N11
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */8 * * *'
 
 env:
   DOCKERFILE: openwrt/openwrt/n11/Dockerfile.openwrt-n11
