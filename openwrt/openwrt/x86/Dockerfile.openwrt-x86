@@ -20,7 +20,7 @@ RUN sed -i 's/255.255.255.0/255.0.0.0/g' package/base-files/files/bin/config_gen
 RUN sed -i "s/hostname='OpenWrt'/hostname='LicsberOP'/g" package/base-files/files/bin/config_generate
 
 ENV GOPROXY='https://goproxy.io,direct'
-RUN if [ `nproc` -le 4 ]; then make -j3 || make V=s; else make -j `nproc` || make V=s; fi && \
+RUN if [ `nproc` -le 4 ]; then make -j2 || make V=s; else make -j `nproc` || make V=s; fi && \
     echo $?
 
 RUN tree -h bin
