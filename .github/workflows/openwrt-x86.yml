@@ -3,7 +3,7 @@ name: OpenWRT X86
 on:
   workflow_dispatch:
   schedule:
-    - cron: '31 4,12,20 * * *'
+    - cron: '41 4,12,20 * * *'
 
 env:
   DOCKERFILE: openwrt/openwrt/x86/Dockerfile.openwrt-x86
