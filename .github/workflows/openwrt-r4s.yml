@@ -3,7 +3,7 @@ name: OpenWRT R4s
 on:
   workflow_dispatch:
   schedule:
-    - cron: '31 4,12,20 * * *'
+    - cron: '21 4,12,20 * * *'
 
 env:
   DOCKERFILE: openwrt/openwrt/r4s/Dockerfile.openwrt-r4s
