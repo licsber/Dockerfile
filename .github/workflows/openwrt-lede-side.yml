@@ -1,4 +1,4 @@
-name: OpenWRT Side Router
+name: OpenWRT LEDE Side Router
 
 on:
   workflow_dispatch:
@@ -6,13 +6,13 @@ on:
     - cron: '31 4,12,20 * * *'
 
 env:
-  DOCKERFILE: openwrt/openwrt/side/Dockerfile.openwrt-side
+  DOCKERFILE: openwrt/lede/side/Dockerfile.openwrt-lede-side
   REGION: cn-beijing
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: licsber
   REPOSITORY: github
-  TAG: openwrt-side
-  TAG_FULL: openwrt-side-${{ github.run_id }}
+  TAG: openwrt-lede-side
+  TAG_FULL: openwrt-lede-side-${{ github.run_id }}
 
 jobs:
   build:
